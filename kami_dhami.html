@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Kami 💖</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+
+<style>
+body{
+  margin:0;
+  background: linear-gradient(180deg, #fff7fb, #ffe3f2);
+  font-family:'Poppins', sans-serif;
+  overflow:hidden;
+  text-align:center;
+  color:#ff4da6;
+}
+
+.bg-hearts span{
+  position:fixed;
+  bottom:-20px;
+  font-size:16px;
+  opacity:0.35;
+  animation:rise 10s linear infinite;
+}
+
+@keyframes rise{ from{transform:translateY(0);}to{transform:translateY(-110vh);} }
+
+.box{
+  background: rgba(255,255,255,0.65);
+  backdrop-filter: blur(14px);
+  border-radius:28px;
+  padding:50px;
+  width:88%;
+  max-width:720px;
+  margin:110px auto;
+  position:relative;
+  box-shadow:0 20px 60px rgba(255,105,180,0.18);
+}
+
+h1,h2,h3{ font-family:'Press Start 2P'; color:#ff4da6; }
+
+button{
+  font-family:'Press Start 2P';
+  padding:16px 28px;
+  margin:18px;
+  border:none;
+  background:linear-gradient(45deg,#ff9ad5,#ff4da6);
+  color:white;
+  cursor:pointer;
+  border-radius:16px;
+  box-shadow:0 8px 0 #ff2f92;
+  transition:0.15s;
+}
+
+button:active{ transform:translateY(4px); box-shadow:0 3px 0 #ff2f92; }
+
+.pixel-pet{ font-size:48px; margin:12px 0; animation:bounce 1.2s infinite; }
+
+@keyframes bounce{ 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+
+.sparkle{ position:fixed; font-size:14px; opacity:0.6; animation:rise 7s linear infinite; }
+
+</style>
+</head>
+
+<body>
+
+<!-- FIXED background music setup (works on mobile + desktop) -->
+<audio id="bgMusic" loop preload="auto" playsinline>
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_9bdf5f0c57.mp3" type="audio/mpeg">
+</audio>
+
+<div class="bg-hearts" id="bg"></div>
+
+<div class="box" id="screen">
+<h2>LOVE QUEST</h2>
+<p>Player 1: Ani</p>
+<p>Player 2: Kami</p>
+<div class="pixel-pet">૮ ˶ᵔ ᵕ ᵔ˶ ა</div>
+<button onclick="startGame()">START GAME</button>
+</div>
+
+<script>
+
+// pinterest floating hearts
+for(let i=0;i<20;i++){
+  let h=document.createElement('span');
+  h.innerHTML='❤';
+  h.style.left=Math.random()*100+'%';
+  h.style.animationDelay=Math.random()*10+'s';
+  document.getElementById('bg').appendChild(h);
+}
+
+// sparkle layer
+for(let i=0;i<15;i++){
+  let s=document.createElement('div');
+  s.className='sparkle';
+  s.innerHTML='✦';
+  s.style.left=Math.random()*100+'%';
+  s.style.animationDelay=Math.random()*7+'s';
+  document.body.appendChild(s);
+}
+
+// STRONG music trigger (user interaction required by browsers)
+function playMusic(){
+  const music = document.getElementById('bgMusic');
+  music.volume = 0.6;
+  const playPromise = music.play();
+  if(playPromise !== undefined){
+    playPromise.catch(()=>{
+      // fallback: play again after tiny delay
+      setTimeout(()=>music.play(),300);
+    });
+  }
+}
+
+function startGame(){
+  playMusic();
+  document.getElementById("screen").innerHTML = `
+  <h3>Level unlocked</h3>
+  <p>Kami entered the game 💖</p>
+  <p>+comfort</p>
+  <p>+warmth</p>
+  <p>+home</p>
+  <button onclick="nextLevel()">Continue</button>
+  `;
+}
+
+function nextLevel(){
+  document.getElementById("screen").innerHTML = `
+  <h3>Things about you</h3>
+  <p>Your voice.</p>
+  <p>Your presence.</p>
+  <p>Your softness.</p>
+  <div class="pixel-pet">♡</div>
+  <button onclick="finalScreen()">Next</button>
+  `;
+}
+
+function finalScreen(){
+  document.getElementById("screen").innerHTML = `
+  <h3>FINAL QUEST</h3>
+  <p>Kami...</p>
+  <p>Will you be my Valentine?</p>
+  <button onclick="yes()">YES 💘</button>
+  <button id="noBtn" onclick="moveNo()">NO 😈</button>
+  `;
+}
+
+function moveNo(){
+  let btn = document.getElementById("noBtn");
+  btn.style.position="absolute";
+  btn.style.left=Math.random()*80+"%";
+  btn.style.top=Math.random()*80+"%";
+}
+
+function yes(){
+  document.getElementById("screen").innerHTML = `
+  <h2>YOU + ME 💖</h2>
+  <p>Valentine unlocked.</p>
+  <p>Stay in my game forever?</p>
+  <div class="pixel-pet">♡(˃͈ દ ˂͈ ༶ )</div>
+  `;
+}
+
+</script>
+
+</body>
+</html>
